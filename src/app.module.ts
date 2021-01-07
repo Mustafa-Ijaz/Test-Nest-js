@@ -7,15 +7,26 @@ import { AppService } from './app.service';
 import { ProductsController } from './products/products.controller';
 import { ProductsModule } from './products/products.module';
 
+import configuration from './config/configuration';
+
 @Module({
-  imports: [ProductsModule,
+  imports: [
+    // MongooseModule.forRootAsync({
+    //   imports: [ConfigModule],
+    //   useFactory: (config:ConfigService) => config.get('mongodb',{
+    //     connectionName: 'products',
+    //   }),
+    //   inject: [ConfigService],
+    // }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [configuration],
+    }),
     MongooseModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: (config:ConfigService) => config.get('mongodb',{
-        connectionName: 'products',
-      }),
+      useFactory: (config: ConfigService) => config.get('mongodb'),
       inject: [ConfigService],
     }),
+    ProductsModule
 ],
   controllers: [AppController],
   providers: [AppService],

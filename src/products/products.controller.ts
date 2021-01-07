@@ -1,4 +1,4 @@
-import { Controller,Post,Body,Get } from "@nestjs/common";
+import { Controller,Post,Body,Get,Request,Response } from "@nestjs/common";
 
 import { ProductsService } from "./products.service";
 import { ApiCreatedResponse } from '@nestjs/swagger';
@@ -13,9 +13,13 @@ export class ProductsController{
         description : "Item Successfully Added to Database"
     })
     viewProducts(
+        @Request() req,
         @Body('title') productTitle : string,
         @Body('price') productPrice : number
         ) {
+            console.log("Request",req.body)
+            console.log("productTitle",productTitle)
+            console.log("productPrice",productPrice)
         return this.productsService.insertTitle(productTitle,productPrice);
     }
     @Get('test')

@@ -3,11 +3,11 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 export type ProductDocument = Product & Document;
 
+@Schema()
 export class Product {
-
-  @Prop({ alias: 'title' })
+  @Prop()
   title: string;
-  @Prop({ alias: 'price' })
+  @Prop()
   price: number;
 }
 export const ProductSchema = SchemaFactory.createForClass(Product);
